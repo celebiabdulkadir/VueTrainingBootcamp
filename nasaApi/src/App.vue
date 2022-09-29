@@ -1,14 +1,14 @@
 <script setup>
 import DATA from "./assets/scripts/fetch";
 import ButtonComp from "./components/Button/ButtonComp.vue";
-import NewsContent from "./components/newsContent/NewsContent.vue";
-
+import ContentComp from "./components/newsContent/ContentComp.vue";
 import {ref} from "vue";
+
 const titleValues = ref([]);
 const content = ref([]);
-const keyWords = ref([]);
 const open = ref(false) 
 const allData = DATA.results; 
+
 // This function gets all titles
 function getTitles() {
   const titles = allData.map(title => title.title );
@@ -17,20 +17,15 @@ function getTitles() {
   return titles
 }
 
-
 // This function gets datas regarding title
 function getContents(title) {
   const result = allData.filter(content => content.title === title );
-  const keyword = result.keyWords;
-  keyWords.value = keyword
-
-
   return result
 }
 getContents()
 getTitles()
 
-// click function that sends related data to NewsContent component
+// click function that sends related data to ContentComp component
 function getContent(title) {
   const icerik = getContents(title)
   content.value = icerik
@@ -52,7 +47,7 @@ function getContent(title) {
     </ButtonComp>
     <Teleport to="body">  <!-- I use teleport in order to show news details. -->
     <div v-if="open" class="modal">
-    <NewsContent v-if="content.length > 0" :content="content" :titleValues="titleValues" :keyWords="keyWords"></NewsContent> <button @click="open = false">Close</button> <span></span>
+    <ContentComp v-if="content.length > 0" :content="content" :titleValues="titleValues" ></ContentComp> <button @click="open = false">Close</button> <span></span>
     
     </div>
     </Teleport>
@@ -97,23 +92,6 @@ function getContent(title) {
   cursor:pointer;
 }
 .modal {
-    /* position: flex;
-    flex-direction: column;
-    top: 0;
-    left: 0;
-    background-color: white;
-    width: 100% ;
-    height: 100% ;
-    display: flex ;
-    justify-content: center;
-    align-items: center;
-    color: black;
-    padding-left: 15px ;
-    padding-right: 15px ;
-    padding-bottom: 15px ;
-    padding-top: 15px ;
-    border-radius: 15px; */
-
     position: relative;
     display: flex;
     flex-direction: column;
@@ -130,7 +108,4 @@ function getContent(title) {
     padding-bottom: 15px ;
     padding-top: 15px ;
 }
-
-
-
 </style>

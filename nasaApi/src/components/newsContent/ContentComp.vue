@@ -5,15 +5,13 @@ const props = defineProps(['content'])
 </script>
 
 <template>
-
-  <div class="headlineTitle" v-for="item in props.content" :key="item" >{{item.title}}</div>
-  <div class = "description" v-for="item in props.content" :key="item"  > {{item.description}}</div>
-  <img class="imageUrl" v-for="item in props.content" :key="item" :src="item.image_url"  alt="" >
-  <div>
-    <div class = "keyword" v-for="item in props.content" :key="item"  > Publish Date : {{item.pubDate}}</div>
-  </div>
-
-  <a  class = "newsUrl" v-for="item in props.content" :key="item" :href="item.link"  target="_blank"> Complete Article</a>
+<div v-for="item in props.content" :key="item">
+  <div class="headlineTitle"  >{{item.title}}</div>
+  <div class = "description"  > {{item.description}}</div>
+  <img class="imageUrl"   :src="item.image_url"  alt="" >
+  <div class = "pubDate" > Publish Date : {{item.pubDate}}</div>
+  <a  class = "newsUrl"  :href="item.link"  target="_blank"> Complete Article</a>
+</div>
 </template>
 
 <style scoped>
@@ -58,7 +56,7 @@ const props = defineProps(['content'])
   text-align: left;
 
 }
-.keyword {
+.pubDate {
   display: flex;
   flex-direction: row;
   align-items: center;
